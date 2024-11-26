@@ -1,53 +1,34 @@
 import 'dart:async';
-
-import 'package:weather_app/views/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/views/home_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
-        ),
-      );
+    Timer(const Duration(seconds: 3),(){
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>const HomeScreen()));
     });
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xff2183E9),
-              Color(0xff74DFF5),
-            ],
-          ),
-        ),
-        alignment: Alignment.center,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 400),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/logo.png',
-              height: 100,
-              width: 100,
+            Center(
+              child: Container(
+                height: 200,
+                width: 200,
+                decoration: const BoxDecoration(
+                  // color: Colors.red,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('assets/logo.png'),
+                    ),
+                ),
+              ),
             ),
-            SizedBox(height: 70),
-            Text(
-              'Weather Forecast',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 38,
-                  fontWeight: FontWeight.bold,
-                  height: -0.5),
-            ),
+            Text("Weather Forecast",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
           ],
         ),
       ),

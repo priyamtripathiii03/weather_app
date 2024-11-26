@@ -1,15 +1,15 @@
 class WeatherModal {
   late LocationModal locationModal;
   late CurrentModal currentModal;
-  late ForcatModal forcatModal;
+  late ForecastModal forecastModal;
 
-  WeatherModal(this.locationModal, this.currentModal, this.forcatModal);
+  WeatherModal(this.locationModal, this.currentModal, this.forecastModal);
 
   factory WeatherModal.fromJson(Map m1) {
     return WeatherModal(
         LocationModal.fromJson(m1['location']),
         CurrentModal.fromJson(m1['current']),
-        ForcatModal.fromJson(m1['forecast']));
+        ForecastModal.fromJson(m1['forecast']));
   }
 }
 
@@ -68,63 +68,47 @@ class Condition {
   }
 }
 
-class ForcatModal {
-  late List<Forecastday> forcastday = [];
+class ForecastModal {
+  late List<ForecastDay> forecastDay = [];
 
-  ForcatModal(this.forcastday);
+  ForecastModal(this.forecastDay);
 
-  factory ForcatModal.fromJson(Map m1) {
-    return ForcatModal((m1['forecastday'] as List)
+  factory ForecastModal.fromJson(Map m1) {
+    return ForecastModal((m1['forecastday'] as List)
         .map(
-          (e) => Forecastday.fromJson(e),
+          (e) => ForecastDay.fromJson(e),
     )
-        .toList() ??[]);
+        .toList() ?? []);
   }
 }
-class Forecastday {
+
+class ForecastDay {
   late String date;
   late DayModal day;
-  late AstroModal astro;
   late List<HourModal> hour = [];
 
-  Forecastday(this.date, this.day, this.hour,this.astro);
+  ForecastDay(this.date, this.day, this.hour);
 
-  factory Forecastday.fromJson(Map m1) {
-    return Forecastday(
-      m1['date'],
-      DayModal.fromJson(m1['day']),
-      (m1['hour'] as List)
-          .map(
-            (e) => HourModal.fromJson(e),
-      )
-          .toList(),
-      AstroModal.fromJson(m1['astro']),
-    );
-  }
-}
-
-class AstroModal
-{
-  late String sunrise,sunset;
-
-  AstroModal(this.sunrise,this.sunset);
-
-  factory AstroModal.fromJson(Map m1)
-  {
-    return AstroModal(m1['sunrise'], m1['sunset']);
+  factory ForecastDay.fromJson(Map m1) {
+    return ForecastDay(m1['date'],
+        DayModal.fromJson(m1['day']),
+        (m1['hour'] as List)
+            .map(
+              (e) => HourModal.fromJson(e),
+        )
+            .toList());
   }
 }
 
 class DayModal {
   late double maxtemp_c, mintemp_c;
   late DayConditionModal dayConditionModal;
-  late int daily_chance_of_rain;
 
-  DayModal(this.maxtemp_c, this.mintemp_c, this.dayConditionModal,this.daily_chance_of_rain);
+  DayModal(this.maxtemp_c, this.mintemp_c, this.dayConditionModal);
 
   factory DayModal.fromJson(Map m1) {
     return DayModal(m1['maxtemp_c'].toDouble(), m1['mintemp_c'].toDouble(),
-        DayConditionModal.fromJson(m1['condition']),m1['daily_chance_of_rain']);
+        DayConditionModal.fromJson(m1['condition']));
   }
 }
 

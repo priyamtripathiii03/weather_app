@@ -1,40 +1,51 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_app/api_helper/api_helper.dart';
 import 'package:weather_app/model/weather_model.dart';
 
-class WeatherProvider extends ChangeNotifier {
-  String search = 'Surat';
-  ApiHelper apiHelper = ApiHelper();
-  WeatherModal ? weatherModal;
-  List <String> weather = [];
+class HomeProvider extends ChangeNotifier {
+  List<String> weather = [];
+  WeatherModal? weatherModal;
+  String search = "Surat";
+  int selectedIndex = 0;
+
+  void Searchweather(String search) {
+    this.search = search;
+    notifyListeners();
+  }
+
+  void SelectedImage(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
 
   Future<WeatherModal?> fromMap(String search) async {
-    final data = await apiHelper.fetchApi(search);
+    Map<String, dynamic> data =
+        await ApiHelper.apihelper.fetchApiData(search: search);
     weatherModal = WeatherModal.fromJson(data);
     return weatherModal;
   }
 
-  void searchCity(String city) {
-    search = city;
-    notifyListeners();
-  }
-
-  Future <void> addFavCity(String name, String temp, String type) async {
+  Future<void> addFavCity(String name, String temp, String type) async {
     String data = '$name-$temp-$type';
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     weather.add(data);
-    sharedPreferences.setStringList('weather',weather);
+    // weather.clear();
+    sharedPreferences.setStringList('weather', weather);
   }
-  Future <void> getFavouriteWeather() async {
+
+  Future<void> getFavouriteWeather() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     weather = sharedPreferences.getStringList('weather') ?? <String>[];
     notifyListeners();
   }
-  weatherProvider() {
+
+  void Delete(int index) {
+    weather.removeAt(index);
+    notifyListeners();
+  }
+
+  HomeProvider() {
     getFavouriteWeather();
   }
 }

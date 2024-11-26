@@ -1,14 +1,20 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 class ApiHelper {
-  Future <Map> fetchApi(String search) async {
-    Uri url = Uri.parse('https://api.weatherapi.com/v1/forecast.json?key=138c2e5f1ff140c8ad2101054243007&q=$search');
+  static ApiHelper apihelper = ApiHelper._();
+  ApiHelper._();
+
+  Future<Map<String, dynamic>> fetchApiData({String search = "SURAT"}) async {
+    String api = "https://api.weatherapi.com/v1/forecast.json?key=c0fe1ad1d1c54177b8b101154243007&q=$search";
+    Uri url = Uri.parse(api);
     Response response = await http.get(url);
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       final json = response.body;
-      final data = jsonDecode(json);
+      // Cast to Map<String, dynamic> to match expected type
+      Map<String, dynamic> data = jsonDecode(json) ;
       return data;
     } else {
       return {};
