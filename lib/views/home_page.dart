@@ -238,7 +238,7 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             const Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
                                   Icon(
@@ -341,7 +341,7 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 const Text(
                                   'Humidity',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.white, fontSize: 28),
                                 ),
                                 Text(

@@ -57,7 +57,7 @@ class DetailScreen extends StatelessWidget {
                   onTap: () {
                     homeProviderfalse.Delete(index);
                   },
-                  child: const Icon(Icons.delete)),
+                  child: const Icon(Icons.delete,color: Colors.red,)),
             ),
           );
         },

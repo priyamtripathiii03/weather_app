@@ -28,7 +28,7 @@ class SplashScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Text("Weather Forecast",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
+            const Text("Weather Forecast",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
           ],
         ),
       ),
